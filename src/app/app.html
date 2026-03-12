@@ -1,17 +1,4 @@
 <app-navbar></app-navbar>
 <app-slider></app-slider>
-<div class="container h-100">
-  <div class="row">
-    @for (card of cards; track $index) {
-      <div class="col-md-4 d-flex my-3">
-        <app-cards
-          [imageSrc]="card.imageSrc"
-          [imageAlt]="card.imageAlt"
-          [productName]="card.productName"
-          [price]="card.price"
-        ></app-cards>
-      </div>
-    }
-  </div>
-</div>
+<app-cards></app-cards>
 <app-footer></app-footer>
