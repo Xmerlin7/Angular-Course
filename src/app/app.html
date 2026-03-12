@@ -3,8 +3,13 @@
 <div class="container h-100">
   <div class="row">
     @for (card of cards; track $index) {
-      <div class="col-md-3 d-flex my-3">
-        <app-cards [imageSrc]="card.imageSrc" [imageAlt]="card.imageAlt"></app-cards>
+      <div class="col-md-4 d-flex my-3">
+        <app-cards
+          [imageSrc]="card.imageSrc"
+          [imageAlt]="card.imageAlt"
+          [productName]="card.productName"
+          [price]="card.price"
+        ></app-cards>
       </div>
     }
   </div>
