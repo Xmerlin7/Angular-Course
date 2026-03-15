@@ -1,0 +1,31 @@
+<div class="container my-4">
+  <div class="row g-3">
+    @for (product of products; track product.id) {
+      <div class="col-12 col-sm-6 col-md-4">
+        <app-cards>
+          <img
+            [src]="product.image"
+            [alt]="product.name"
+            class="card-img-top"
+            style="height: 220px; object-fit: cover"
+          />
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text mb-2">{{ product.description }}</p>
+            <p class="mb-2 text-muted">Category: {{ product.category }}</p>
+            <p class="fw-bold mb-3">$ {{ product.price }}</p>
+            <button
+              class="btn mt-auto"
+              [class.btn-primary]="product.quantity > 0"
+              [class.btn-secondary]="product.quantity === 0"
+              [disabled]="product.quantity === 0"
+            >
+              {{ product.quantity > 0 ? 'Buy Now' : 'Out of Stock' }}
+            </button>
+          </div>
+        </app-cards>
+      </div>
+    }
+  </div>
+</div>
