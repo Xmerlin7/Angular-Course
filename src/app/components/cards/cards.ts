@@ -18,6 +18,7 @@ export class Cards {
       imageAlt: 'Laptop',
       productName: 'Laptop Pro 15"',
       price: 999,
+      inStock: true
     },
     {
       id : 2,
@@ -25,6 +26,7 @@ export class Cards {
       imageAlt: 'Smartphone',
       productName: 'Smartphone X12',
       price: 499,
+      inStock: true
     },
     {
       id : 3,
@@ -32,6 +34,7 @@ export class Cards {
       imageAlt: 'Headphones',
       productName: 'Wireless Headphones',
       price: 199,
+      inStock: true
     },
     {
       id : 4,
@@ -39,6 +42,7 @@ export class Cards {
       imageAlt: 'Smart Watch',
       productName: 'Smart Watch Series 5',
       price: 299,
+      inStock: true
     },
     {
       id : 5,
@@ -46,6 +50,7 @@ export class Cards {
       imageAlt: 'Tablet',
       productName: 'Tablet Ultra 10"',
       price: 399,
+      inStock: true
     },
     {
       id : 6,
@@ -53,6 +58,7 @@ export class Cards {
       imageAlt: 'Camera',
       productName: 'DSLR Camera 4K',
       price: 799,
+      inStock: false
     },
     {
       id : 7,
@@ -60,6 +66,7 @@ export class Cards {
       imageAlt: 'Speaker',
       productName: 'Bluetooth Speaker',
       price: 149,
+      inStock: true
     },
     {
       id : 8,
@@ -67,6 +74,7 @@ export class Cards {
       imageAlt: 'Keyboard',
       productName: 'Mechanical Keyboard',
       price: 129,
+      inStock: false
     },
   ];
 }
