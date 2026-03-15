@@ -8,12 +8,13 @@ export const routes: Routes = [
   },
   {
     path: 'product',
-    loadComponent: () => import('./components/cards/cards').then((component) => component.Cards),
+    loadComponent: () =>
+      import('./components/products/products').then((component) => component.Products),
   },
   {
     path: 'contact',
     loadComponent: () =>
       import('./components/contact/contact').then((component) => component.Contact),
   },
-  { path: '**', redirectTo: 'slider' },
+  { path: '**', redirectTo: 'home' },
 ];
