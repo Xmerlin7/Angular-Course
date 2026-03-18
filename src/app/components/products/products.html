@@ -1,4 +1,48 @@
 <div class="container my-4">
+  <form [formGroup]="productForm" (ngSubmit)="submitForm()" class="row g-2 mb-4">
+    <div class="col-12 col-md-4">
+      <input type="text" class="form-control" formControlName="name" placeholder="Name" />
+    </div>
+    <div class="col-12 col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        placeholder="Description"
+      />
+    </div>
+    <div class="col-6 col-md-2">
+      <input type="number" class="form-control" formControlName="price" placeholder="Price" />
+    </div>
+    <div class="col-6 col-md-2">
+      <input type="number" class="form-control" formControlName="quantity" placeholder="Stock" />
+    </div>
+    <div class="col-12 col-md-6">
+      <input type="text" class="form-control" formControlName="image" placeholder="Image URL" />
+    </div>
+    <div class="col-12 col-md-3">
+      <input type="text" class="form-control" formControlName="category" placeholder="Category" />
+    </div>
+    <div class="col-12 col-md-3 d-flex gap-2">
+      <button class="btn btn-success flex-grow-1" type="submit" [disabled]="productForm.invalid">
+        {{ editingProductId !== null ? 'Update' : 'Add' }}
+      </button>
+      @if (editingProductId !== null) {
+        <button class="btn btn-outline-secondary" type="button" (click)="cancelEdit()">
+          Cancel
+        </button>
+      }
+    </div>
+  </form>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  @if (isLoading) {
+    <div class="alert alert-info">Loading products...</div>
+  }
+
   <div class="row g-3">
     @for (product of products; track product.id) {
       <div class="col-12 col-sm-6 col-md-4">
@@ -23,6 +67,22 @@
             >
               {{ product.quantity > 0 ? 'Buy Now' : 'Out of Stock' }}
             </button>
+            <div class="d-flex gap-2 mt-2">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                type="button"
+                (click)="startEdit(product)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                type="button"
+                (click)="deleteProduct(product.id)"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </app-cards>
       </div>
