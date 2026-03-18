@@ -1,35 +1,74 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Product } from '../interfaces/product';
+import { map, Observable } from 'rxjs';
+
+interface DummyJsonProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  thumbnail: string;
+  stock: number;
+}
+
+interface DummyJsonProductsResponse {
+  products: DummyJsonProduct[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Smart Watch',
-      price: 120,
-      description: 'This watch is very beautiful and smart',
-      image:
-        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80', // Actual smart watch image
-      category: 'electronics',
-      quantity: 5,
-    },
-    {
-      id: 2,
-      name: 'Headphones',
-      price: 80,
-      description: 'High quality wireless headphones',
-      image:
-        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80', // Actual smart watch image
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = 'https://dummyjson.com/products';
 
-      category: 'electronics',
-      quantity: 0,
-    },
-  ];
+  getProducts(): Observable<Product[]> {
+    return this.http
+      .get<DummyJsonProductsResponse>(`${this.baseUrl}?limit=12`)
+      .pipe(map((response) => response.products.map((product) => this.mapToProduct(product))));
+  }
 
-  getProducts(): Product[] {
-    return this.products;
+  createProduct(payload: Omit<Product, 'id'>): Observable<Product> {
+    return this.http
+      .post<DummyJsonProduct>(`${this.baseUrl}/add`, {
+        title: payload.name,
+        description: payload.description,
+        price: payload.price,
+        category: payload.category,
+        thumbnail: payload.image,
+        stock: payload.quantity,
+      })
+      .pipe(map((product) => this.mapToProduct(product)));
+  }
+
+  updateProduct(id: number, payload: Omit<Product, 'id'>): Observable<Product> {
+    return this.http
+      .put<DummyJsonProduct>(`${this.baseUrl}/${id}`, {
+        title: payload.name,
+        description: payload.description,
+        price: payload.price,
+        category: payload.category,
+        thumbnail: payload.image,
+        stock: payload.quantity,
+      })
+      .pipe(map((product) => this.mapToProduct(product)));
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  private mapToProduct(product: DummyJsonProduct): Product {
+    return {
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      description: product.description,
+      image: product.thumbnail,
+      category: product.category,
+      quantity: product.stock,
+    };
   }
 }
